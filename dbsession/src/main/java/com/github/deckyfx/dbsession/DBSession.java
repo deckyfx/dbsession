@@ -87,9 +87,12 @@ public class DBSession  extends com.github.deckyfx.dbhelper.DBHelper{
         T session                           = null;
         try {
             session = (T) this.mSessionClass.newInstance();
+            session = session.parseJackson(this.getAsText());
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
         if (session == null) {
