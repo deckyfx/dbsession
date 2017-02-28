@@ -1,10 +1,9 @@
 package com.github.deckyfx.dbsessionapp;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.github.deckyfx.dbsession.DBSession;
-import com.github.deckyfx.dbsessionapp.R;
 
 public class MainActivity extends AppCompatActivity {
 

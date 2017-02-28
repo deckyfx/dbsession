@@ -6,17 +6,12 @@ import com.github.deckyfx.dbsession.dao.DaoMaster;
 import com.github.deckyfx.dbsession.dao.DbSession;
 import com.github.deckyfx.simpleadapter.AdapterItem;
 
-import org.greenrobot.greendao.AbstractDaoMaster;
 import org.greenrobot.greendao.Property;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
