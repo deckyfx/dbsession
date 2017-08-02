@@ -6,6 +6,7 @@ Android user session stored in sqlite db, this is implementation of
 * deckyfx/dbhelper
 * deckyfx/simpleadapter
 * gson
+* greendao
 
 Add it in your root build.gradle at the end of repositories:
 
@@ -22,6 +23,7 @@ Add the dependency
 ```gradle
 dependencies {
     compile 'com.google.code.gson:gson:2.8.1'
+    compile 'org.greenrobot:greendao:3.2.0'
     compile 'com.github.deckyfx:simpleadapter:0.17@aar'
     compile 'com.github.deckyfx:dbhelper:0.4'
     compile 'com.github.deckyfx:dbsession:0.13'
