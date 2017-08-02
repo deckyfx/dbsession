@@ -4,13 +4,13 @@ import android.content.Context;
 
 import com.github.deckyfx.dbsession.dao.DaoMaster;
 import com.github.deckyfx.dbsession.dao.DbSession;
-import com.github.deckyfx.simpleadapter.AdapterItem;
+import com.github.deckyfx.simpleadapter.BaseItem;
+import com.google.gson.JsonSyntaxException;
 
 import org.greenrobot.greendao.Property;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class DBSession  extends com.github.deckyfx.dbhelper.DBHelper{
     private final Context mContext;
-    private final Class<? extends AdapterItem> mSessionClass;
+    private final Class<? extends BaseItem> mSessionClass;
 
     private static final class DB_SESSION {
         public static final String DAO_NAME             = "DbSession";
@@ -47,7 +47,7 @@ public class DBSession  extends com.github.deckyfx.dbhelper.DBHelper{
     public static final String SESSION_DATA_SEPARATOR   = ".";
     public static final String ACCESS_LOG_TIME_KEY      = "ACCESS_LOG_TIME";
 
-    public DBSession(Context context, Class<? extends AdapterItem> sessionClass) {
+    public DBSession(Context context, Class<? extends BaseItem> sessionClass) {
         super(context, DaoMaster.class, DB_SESSION_DB_NAME);
 
         this.mContext                       = context;
@@ -56,7 +56,7 @@ public class DBSession  extends com.github.deckyfx.dbhelper.DBHelper{
         this.DbSessionIdProperty            = this.getEntity(DB_SESSION.DAO_NAME).getProperty(DB_SESSION.PROPERTY_ID);
     }
 
-    public String getAsText(){
+    public String getRaw(){
         JSONObject session_json = null;
         List session_list = this.getEntity(DB_SESSION.DAO_NAME)
                 .queryBuilder().limit(1)
@@ -70,41 +70,29 @@ public class DBSession  extends com.github.deckyfx.dbhelper.DBHelper{
         return "{}";
     }
 
-    public JSONObject getAsJSON(){
-        try {
-            return new JSONObject(this.getAsText());
-        } catch (JSONException e) {
-            return new JSONObject();
-        }
-    }
-
-    public <T extends AdapterItem> T get(){
-        T session                           = null;
-        try {
-            session = (T) this.mSessionClass.newInstance();
-            session = session.parseJackson(this.getAsText());
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public <T extends BaseItem> T get(){
+        T session                           =  this.getOrNull();
         if (session == null) {
-            return (T) new AdapterItem();
+            return (T) new BaseItem();
         }
         return session;
     }
 
-    public void set(String config){
+    public <T extends BaseItem> T getOrNull(){
+        T session                           = null;
         try {
-            this.set(new JSONObject(config));
-        } catch (JSONException e) {
+            session = (T) BaseItem.fromJson(this.getRaw(), this.mSessionClass);
+        } catch (JsonSyntaxException e) {
             e.printStackTrace();
         }
+        return session;
     }
 
-    public void set(JSONObject config){
+    public void set(String config) throws JSONException {
+        this.set(new JSONObject(config));
+    }
+
+    public void set(JSONObject config) throws JSONException {
         List session_list = this.getEntity(DB_SESSION.DAO_NAME)
                 .queryBuilder().limit(1)
                 .orderAsc(this.DbSessionIdProperty).list();
@@ -121,6 +109,10 @@ public class DBSession  extends com.github.deckyfx.dbhelper.DBHelper{
         this.getEntity(DB_SESSION.DAO_NAME).insertOrReplace(session);
     }
 
+    public void set(BaseItem session) throws JSONException {
+        this.set(session.toJson());
+    }
+
     public void save(){
 
     }
@@ -130,8 +122,10 @@ public class DBSession  extends com.github.deckyfx.dbhelper.DBHelper{
     }
 
     public boolean valid(){
-        JSONObject session_json         = this.getAsJSON();
-        if (session_json == null) {
+        JSONObject session_json         = null;
+        try {
+            session_json = new JSONObject(this.getRaw());
+        } catch (JSONException e) {
             return false;
         }
         Iterator<String> keys = session_json.keys();
