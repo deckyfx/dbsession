@@ -110,11 +110,7 @@ public class DBSession  extends com.github.deckyfx.dbhelper.DBHelper{
     }
 
     public void set(BaseItem session) throws JSONException {
-        this.set(session.toJson());
-    }
-
-    public void save(){
-
+        this.set(BaseItem.toJson(session));
     }
 
     public void clear(){
