@@ -6,7 +6,6 @@ import com.github.deckyfx.dbhelper.DBHelper;
 import com.github.deckyfx.dbsession.dao.DaoMaster;
 import com.github.deckyfx.dbsession.dao.DbSession;
 import com.github.deckyfx.simpleadapter.BaseItem;
-import com.google.gson.JsonSyntaxException;
 
 import org.greenrobot.greendao.Property;
 import org.json.JSONException;
@@ -82,7 +81,7 @@ public class DBSession  extends DBHelper {
         T session                           = null;
         try {
             session = (T) BaseItem.fromJson(this.getRaw(), this.mSessionClass);
-        } catch (JsonSyntaxException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return session;
@@ -109,7 +108,7 @@ public class DBSession  extends DBHelper {
         this.getEntity(DB_SESSION.DAO_NAME).insertOrReplace(session);
     }
 
-    public void set(BaseItem session) throws JSONException {
+    public void set(BaseItem session) throws Exception {
         this.set(BaseItem.toJson(session));
     }
 
