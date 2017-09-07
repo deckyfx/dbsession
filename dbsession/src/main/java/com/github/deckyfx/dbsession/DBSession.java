@@ -2,6 +2,7 @@ package com.github.deckyfx.dbsession;
 
 import android.content.Context;
 
+import com.github.deckyfx.dbhelper.DBHelper;
 import com.github.deckyfx.dbsession.dao.DaoMaster;
 import com.github.deckyfx.dbsession.dao.DbSession;
 import com.github.deckyfx.simpleadapter.BaseItem;
@@ -18,7 +19,7 @@ import java.util.List;
 /**
  * Created by decky on 12/29/16.
  */
-public class DBSession  extends com.github.deckyfx.dbhelper.DBHelper{
+public class DBSession  extends DBHelper {
     private final Context mContext;
     private final Class<? extends BaseItem> mSessionClass;
 
@@ -37,7 +38,6 @@ public class DBSession  extends com.github.deckyfx.dbhelper.DBHelper{
         public static final String ARRAY                = "array";
         public static final String OTHER                = "other";
         public static final String NULL                 = "null";
-
     }
 
     public Property DbSessionIdProperty;
