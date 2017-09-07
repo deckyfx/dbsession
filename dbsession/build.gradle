@@ -57,10 +57,9 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    compile 'com.google.code.gson:gson:2.8.1'
     compile 'org.greenrobot:greendao:3.2.0'
-    compile 'com.github.deckyfx:dbhelper:0.5'
-    compile 'com.github.deckyfx:simpleadapter:0.24@aar'
+    compile 'com.github.deckyfx:dbhelper:-SNAPSHOT@aar'
+    compile 'com.github.deckyfx:simpleadapter:-SNAPSHOT@aar'
 
     compile 'com.android.support:appcompat-v7:24.0.0-beta1'
     compile 'com.android.support:recyclerview-v7:24.0.0-beta1'
