@@ -42,8 +42,10 @@ android {
 //ext.INCREASE_VERSION_CODE_WHEN_RUN_TASK = ""
 //apply from: 'https://raw.githubusercontent.com/deckyfx/AndroidTemplate/master/automatic-versioning.gradle'
 
-// Automatic sqlite management
-apply from: 'https://raw.githubusercontent.com/deckyfx/gdgen/master/gdgen.gradle'
+// Automatic sqlite management - Using old version from bintray
+// apply from: 'https://raw.githubusercontent.com/deckyfx/gdgen/master/gdgen.gradle'
+// Automatic sqlite management - Using new version from jitpack
+apply from: 'https://raw.githubusercontent.com/deckyfx/gdgen/master/gdgen-new.gradle'
 
 configurations {
     doc {
@@ -57,12 +59,11 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    compile 'org.greenrobot:greendao:3.2.0'
-    compile 'com.github.deckyfx:dbhelper:-SNAPSHOT@aar'
-    compile 'com.github.deckyfx:simpleadapter:-SNAPSHOT@aar'
+    compileOnly 'com.github.deckyfx:dbhelper:-SNAPSHOT@aar'
+    compileOnly 'com.github.deckyfx:simpleadapter:-SNAPSHOT@aar'
 
-    compile 'com.android.support:appcompat-v7:24.0.0-beta1'
-    compile 'com.android.support:recyclerview-v7:24.0.0-beta1'
+    compileOnly 'com.android.support:appcompat-v7:24.0.0-beta1'
+    compileOnly 'com.android.support:recyclerview-v7:24.0.0-beta1'
     testCompile 'junit:junit:4.12'
 }
 

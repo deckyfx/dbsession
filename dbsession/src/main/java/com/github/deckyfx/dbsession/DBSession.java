@@ -5,9 +5,9 @@ import android.content.Context;
 import com.github.deckyfx.dbhelper.DBHelper;
 import com.github.deckyfx.dbsession.dao.DaoMaster;
 import com.github.deckyfx.dbsession.dao.DbSession;
+import com.github.deckyfx.greendao.Property;
 import com.github.deckyfx.simpleadapter.BaseItem;
 
-import org.greenrobot.greendao.Property;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -18,9 +18,9 @@ import java.util.List;
 /**
  * Created by decky on 12/29/16.
  */
-public class DBSession  extends DBHelper {
+public class DBSession<T extends BaseItem> extends DBHelper {
     private final Context mContext;
-    private final Class<? extends BaseItem> mSessionClass;
+    private final Class<T> mSessionClass;
 
     private static final class DB_SESSION {
         public static final String DAO_NAME             = "DbSession";
@@ -46,7 +46,7 @@ public class DBSession  extends DBHelper {
     public static final String SESSION_DATA_SEPARATOR   = ".";
     public static final String ACCESS_LOG_TIME_KEY      = "ACCESS_LOG_TIME";
 
-    public DBSession(Context context, Class<? extends BaseItem> sessionClass) {
+    public DBSession(Context context, Class<T> sessionClass) {
         super(context, DaoMaster.class, DB_SESSION_DB_NAME);
 
         this.mContext                       = context;
