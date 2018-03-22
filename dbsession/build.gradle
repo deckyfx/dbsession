@@ -8,6 +8,18 @@ version = versionName
 def groupName = group
 def artifactName = 'simpleadapter'
 
+buildscript {
+    ext.gdgengradle_version = '1.0.3'
+
+    repositories {
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+
+    dependencies {
+        classpath "gradle.plugin.com.github.deckyfx:gdgengradle:$gdgengradle_version"
+    }
+}
+
 android {
     compileSdkVersion 24
     buildToolsVersion '25.0.0'
@@ -37,15 +49,7 @@ android {
     }
 }
 
-// Automatic versioning
-//ext.INCREASE_VERSION_NAME_WHEN_RUN_TASK = ""
-//ext.INCREASE_VERSION_CODE_WHEN_RUN_TASK = ""
-//apply from: 'https://raw.githubusercontent.com/deckyfx/AndroidTemplate/master/automatic-versioning.gradle'
-
-// Automatic sqlite management - Using old version from bintray
-// apply from: 'https://raw.githubusercontent.com/deckyfx/gdgen/master/gdgen.gradle'
-// Automatic sqlite management - Using new version from jitpack
-apply from: 'https://raw.githubusercontent.com/deckyfx/gdgen/master/gdgen-new.gradle'
+apply plugin: "com.github.deckyfx.gdgengradle"
 
 configurations {
     doc {
