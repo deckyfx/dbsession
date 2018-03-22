@@ -16,7 +16,7 @@ import com.github.deckyfx.greendao.DaoException;
 @Entity(active = true)
 public class DbSession implements java.io.Serializable {
 
-    @Id(autoincrement = true)
+    @Id
     private long id;
     private String session;
     private java.util.Date createdAt;
@@ -89,7 +89,7 @@ public class DbSession implements java.io.Serializable {
     }
 
     /**
-    * Convenient call for {@link org.greenrobot.greendao.AbstractDao#delete(Object)}.
+    * Convenient call for greendao.AbstractDao#delete(Object).
     * Entity must attached to an entity context.
     */
     @Generated
@@ -99,7 +99,7 @@ public class DbSession implements java.io.Serializable {
     }
 
     /**
-    * Convenient call for {@link org.greenrobot.greendao.AbstractDao#update(Object)}.
+    * Convenient call for greendao.AbstractDao#update(Object).
     * Entity must attached to an entity context.
     */
     @Generated
@@ -109,7 +109,7 @@ public class DbSession implements java.io.Serializable {
     }
 
     /**
-    * Convenient call for {@link org.greenrobot.greendao.AbstractDao#refresh(Object)}.
+    * Convenient call for greendao.AbstractDao#refresh(Object).
     * Entity must attached to an entity context.
     */
     @Generated

@@ -21,12 +21,12 @@ buildscript {
 }
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion '25.0.0'
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 23
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
 
@@ -55,20 +55,6 @@ configurations {
     doc {
         transitive false
     }
-}
-
-dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-
-    compileOnly 'com.github.deckyfx:dbhelper:-SNAPSHOT@aar'
-    compileOnly 'com.github.deckyfx:simpleadapter:-SNAPSHOT@aar'
-
-    compileOnly 'com.android.support:appcompat-v7:24.0.0-beta1'
-    compileOnly 'com.android.support:recyclerview-v7:24.0.0-beta1'
-    testCompile 'junit:junit:4.12'
 }
 
 // build a jar with source files
@@ -102,4 +88,19 @@ android.libraryVariants.all { variant ->
     task.dependsOn variant.javaCompile
     task.from variant.javaCompile.destinationDir
     artifacts.add('archives', task);
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // NOTE: test libraries
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    compileOnly 'com.github.deckyfx:dbhelper:-SNAPSHOT@aar'
+    compileOnly 'com.github.deckyfx:simpleadapter:-SNAPSHOT@aar'
+
+    compileOnly "com.android.support:appcompat-v7:24.0.0-beta1"
+    compileOnly "com.android.support:recyclerview-v7:24.0.0-beta1"
 }

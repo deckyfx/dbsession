@@ -44,7 +44,7 @@ public class DbSessionDao extends AbstractDao<DbSession, Long> {
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"DB_SESSION\" (" + //
-                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL ," + // 0: id
+                "\"_id\" INTEGER PRIMARY KEY NOT NULL ," + // 0: id
                 "\"SESSION\" TEXT," + // 1: session
                 "\"CREATED_AT\" INTEGER," + // 2: createdAt
                 "\"UPDATED_AT\" INTEGER);"); // 3: updatedAt
