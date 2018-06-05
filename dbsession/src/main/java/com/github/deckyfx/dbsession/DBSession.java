@@ -69,18 +69,24 @@ public class DBSession<T extends BaseItem> extends DBHelper {
         return "{}";
     }
 
-    public <T extends BaseItem> T get(){
+    public T get(){
         T session                           =  this.getOrNull();
         if (session == null) {
-            return (T) new BaseItem();
+            try {
+                session = this.mSessionClass.newInstance();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
         }
         return session;
     }
 
-    public <T extends BaseItem> T getOrNull(){
+    public T getOrNull(){
         T session                           = null;
         try {
-            session = (T) BaseItem.fromJson(this.getRaw(), this.mSessionClass);
+            session = T.fromJson(this.getRaw(), this.mSessionClass);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -91,7 +97,7 @@ public class DBSession<T extends BaseItem> extends DBHelper {
         this.set(new JSONObject(config));
     }
 
-    public void set(JSONObject config) throws JSONException {
+    public void set(JSONObject config) {
         List session_list = this.getEntity(DB_SESSION.DAO_NAME)
                 .queryBuilder().limit(1)
                 .orderAsc(this.DbSessionIdProperty).list();
@@ -108,7 +114,7 @@ public class DBSession<T extends BaseItem> extends DBHelper {
         this.getEntity(DB_SESSION.DAO_NAME).insertOrReplace(session);
     }
 
-    public void set(BaseItem session) throws Exception {
+    public void set(T session) throws Exception {
         this.set(BaseItem.toJson(session));
     }
 
