@@ -19,7 +19,6 @@ import java.util.List;
  * Created by decky on 12/29/16.
  */
 public class DBSession<T extends BaseItem> extends DBHelper {
-    private final Context mContext;
     private final Class<T> mSessionClass;
 
     private static final class DB_SESSION {
@@ -49,7 +48,6 @@ public class DBSession<T extends BaseItem> extends DBHelper {
     public DBSession(Context context, Class<T> sessionClass) {
         super(context, DaoMaster.class, DB_SESSION_DB_NAME);
 
-        this.mContext                       = context;
         this.mSessionClass                  = sessionClass;
 
         this.DbSessionIdProperty            = this.getEntity(DB_SESSION.DAO_NAME).getProperty(DB_SESSION.PROPERTY_ID);
